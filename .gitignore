@@ -1,0 +1,6 @@
+/data/
+/logs/*.log
+/logs/*.log.*
+.idea/
+
+/conf/config.yaml
