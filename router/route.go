@@ -7,6 +7,7 @@ import (
 )
 
 func Init(r *gin.Engine) {
+	r.LoadHTMLGlob("./templates/**/*")
 	r.Use(gin.Recovery(), middleware.RequestLog())
 
 	r.GET("/ping", func(c *gin.Context) {
@@ -18,5 +19,6 @@ func Init(r *gin.Engine) {
 	v1 := r.Group("/v1")
 	{
 		v1.GET("/ping", handle.Hello)
+		v1.GET("/welcome", handle.Welcome)
 	}
 }
