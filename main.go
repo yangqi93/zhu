@@ -18,9 +18,11 @@ func main() {
 	//log.Log.Info("init mysql success")
 
 	//路由初始化
+	engin.LoadHTMLGlob("templates/**/*")
+	engin.Static("/assets", "assets")
 	router.Init(engin)
 	//err := engin.Run(config.Conf.Value.GetString("server.port"))
-	err := engin.Run(":8089")
+	err := engin.Run(":8080")
 	if err != nil {
 		panic(err)
 	}

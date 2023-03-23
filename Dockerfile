@@ -22,10 +22,10 @@ RUN apk add tzdata && cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
     && echo "Asia/Shanghai" > /etc/timezone \
 
 # 指定运行时的工作目录
-WORKDIR /app
+WORKDIR /
 
 # 将构建产物/app/main拷贝到运行时的工作目录中
-COPY --from=builder /go/src/zhu/main /app/
+COPY --from=builder /go/src/zhu/main /main
 
 # 执行启动命令
-CMD ["/app/main"]
+CMD ["/main"]

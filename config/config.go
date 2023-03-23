@@ -30,7 +30,6 @@ func init() {
 
 func (c *Config) initConfig(cfg *viper.Viper) error {
 
-	cfg.AddConfigPath("/app/conf")
 	cfg.AddConfigPath("conf")
 	// 如果没有指定配置文件，则解析默认的配置文件
 	cfg.SetConfigName("config")
