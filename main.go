@@ -10,7 +10,7 @@ import (
 )
 
 func main() {
-	engin := gin.New()
+	engin := gin.Default()
 
 	//数据库初始化
 	if err := models.Init(); err != nil {
@@ -20,7 +20,6 @@ func main() {
 	log.Log.Info("init mysql success")
 
 	//路由初始化
-	engin.LoadHTMLGlob("templates/**/*")
 	engin.Static("/assets", "assets")
 	router.Init(engin)
 	//err := engin.Run(config.Conf.Value.GetString("server.port"))

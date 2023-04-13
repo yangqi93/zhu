@@ -22,8 +22,7 @@ func Welcome(c *gin.Context) {
 	if err := validate.Struct(r); err != nil {
 		c.HTML(500, "error.tmpl", gin.H{"error": err.Error()})
 	}
-
-	//获取专题列表数据
+	// 获取专题列表数据
 	if r.Page == 0 || r.PageSize == 0 {
 		r.Page = 1
 		r.PageSize = 12
@@ -34,20 +33,34 @@ func Welcome(c *gin.Context) {
 	}
 
 	TemplateFiles = append(TemplateFiles, "templates/welcome/welcome.tmpl")
-	t := template.Must(template.ParseFiles(TemplateFiles...))
+
+	t, err := template.New("test").Funcs(template.FuncMap{
+		"abc": func(x int) bool {
+			return x == 0 || (x+1)%4 == 0
+		},
+		"cde": func(x int) bool {
+			return x != 0 && (x+1)%4 == 0
+		},
+	}).ParseFiles(
+		TemplateFiles...,
+	)
 	if err != nil {
-		c.HTML(500, "error.tmpl", gin.H{"error": err.Error()})
+		panic(err)
+		//c.HTML(500, "error.tmpl", gin.H{"error": err.Error()})
+	}
+	//计算需要渲染的行数
+	rows := len(topics) / 4
+	if len(topics)%4 != 0 {
+		rows++
 	}
 	err = t.ExecuteTemplate(c.Writer, "layout", gin.H{
 		"title":    "Welcome",
 		"topics":   topics,
 		"page":     r.Page,
 		"pageSize": r.PageSize,
-		"abc": func(x int) bool {
-			return (x+1)%4 == 0
-		},
+		"rows":     rows,
 	})
 	if err != nil {
-		c.HTML(500, "error.tmpl", gin.H{"error": err.Error()})
+		panic(err)
 	}
 }

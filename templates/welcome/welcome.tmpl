@@ -2,40 +2,31 @@
     <div class="main">
         <div class="container">
             <div class="section">
-{{/*                {{ .topics}}*/}}
-                    {{ len .topics}}
-                {{ range $i,$t := .topics }}
-                <!-- 每循环4个话题为一行 == ($i+1)%4 == 0 -->
-{{/*                    {{if call .abc $i 9999}}*/}}
-
-                    <div class="col-md-3">
-                        <div class="card card-plain card-blog">
-                            <div class="card-header card-header-image">
-                                <a href="#pablo">
-                                    <img class="img img-raised" src="{{ $t.Cover }}">
-                                </a>
-                            </div>
-                            <div class="card-body">
-                                <h6 class="card-category text-info">Enterprise</h6>
-                                <h4 class="card-title">
-                                    <a href="#pablo">{{ $t.Title }}</a>
-                                </h4>
-                                <p class="card-description">
-                                    {{ $t.Description }} <a href="/v1/list?topic={{ $t.Id }}"> Read More </a>
-                                </p>
+                <div class="row">
+                    {{ range $i,$t := .topics }}
+                        <div class="col-md-3">
+                            <div class="card card-plain card-blog">
+                                <div class="card-header card-header-image">
+                                    <a href="#pablo">
+                                        <img class="img img-raised" src="{{ $t.Cover }}">
+                                    </a>
+                                </div>
+                                <div class="card-body">
+                                    <h6 class="card-category text-info">Enterprise</h6>
+                                    <h4 class="card-title">
+                                        <a href="#pablo">{{ $t.Title }}</a>
+                                    </h4>
+                                    <p class="card-description">
+                                        {{ $t.Description }} <a href="/v1/list?topic={{ $t.Id }}"> Read More </a>
+                                    </p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-{{/*                    {{if call .abc $i 4}}*/}}
-{{/*                        </div>*/}}
-{{/*                        {{ end }}*/}}
 
+                    {{ else }}
+                        <h6>暂无数据</h6>
+                    {{ end }}
 
-                        {{ else }}
-                            <h6>暂无数据</h6>
-                        {{ end }}
-
-                    </div>
                 </div>
             </div>
         </div>
