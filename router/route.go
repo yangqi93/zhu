@@ -16,6 +16,10 @@ func Init(r *gin.Engine) {
 		})
 	})
 
+	r.GET("/", func(c *gin.Context) {
+		c.Redirect(302, "/v1/welcome")
+	})
+
 	v1 := r.Group("/v1")
 	{
 		v1.GET("/ping", handle.Hello)
