@@ -13,7 +13,7 @@ func main() {
 	//路由初始化
 	engin.Static("/assets", "assets")
 	router.Init(engin)
-	err := engin.Run(":8080")
+	err := engin.Run(":9001")
 	if err != nil {
 		panic(err)
 	}

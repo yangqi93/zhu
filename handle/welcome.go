@@ -2,9 +2,7 @@ package handle
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/go-playground/validator/v10"
 	"html/template"
-	"zhu/service"
 )
 
 type WelcomeRequest struct {
@@ -12,24 +10,67 @@ type WelcomeRequest struct {
 	PageSize int32 `form:"pageSize" validate:"required"`
 }
 
+type Status struct {
+	Page struct {
+		Time struct {
+			Start []string `json:"start"`
+		}
+	}
+	Time   int64  `json:"time"`
+	Uptime string `json:"uptime"`
+	Cpu    struct {
+		Stat struct {
+			User    string `json:"user"`
+			Nice    string `json:"nice"`
+			Sys     string `json:"sys"`
+			Idle    string `json:"idle"`
+			Iowait  string `json:"iowait"`
+			Irq     string `json:"irq"`
+			Softirq string `json:"softirq"`
+		}
+		Temp []string `json:"temp"`
+	}
+	Mem struct {
+		Total         float64 `json:"total"`
+		Free          float64 `json:"free"`
+		Buffers       float64 `json:"buffers"`
+		Cached        float64 `json:"cached"`
+		CachedPercent float64 `json:"cached_percent"`
+		Used          float64 `json:"used"`
+		Percent       float64 `json:"percent"`
+		Real          struct {
+			Used    float64 `json:"used"`
+			Free    float64 `json:"free"`
+			Percent float64 `json:"percent"`
+		}
+		Swap struct {
+			Total   int `json:"total"`
+			Free    int `json:"free"`
+			Used    int `json:"used"`
+			Percent int `json:"percent"`
+		}
+	}
+	LoadAvg []string `json:"load_avg"`
+	Disk    struct {
+		Total   float64 `json:"total"`
+		Free    float64 `json:"free"`
+		Used    float64 `json:"used"`
+		Percent float64 `json:"percent"`
+	}
+	Net struct {
+		Count      int `json:"count"`
+		Interfaces []struct {
+			Name     string `json:"name"`
+			TotalIn  string `json:"total_in"`
+			TotalOut string `json:"total_out"`
+		}
+	}
+}
+
 func Welcome(c *gin.Context) {
-	//接收参数
-	var r WelcomeRequest
-	if err := c.ShouldBind(&r); err != nil {
-		c.HTML(500, "error.tmpl", gin.H{"error": err.Error()})
-	}
-	validate := validator.New()
-	if err := validate.Struct(r); err != nil {
-		c.HTML(500, "error.tmpl", gin.H{"error": err.Error()})
-	}
-	// 获取专题列表数据
-	if r.Page == 0 || r.PageSize == 0 {
-		r.Page = 1
-		r.PageSize = 12
-	}
-	topics, err := service.GetTopicList(c, int(r.Page), int(r.PageSize))
-	if err != nil {
-		c.HTML(500, "error.tmpl", gin.H{"error": err.Error()})
+	if ajax, ok := c.GetQuery("ajax"); ok && ajax == "true" {
+		c.JSON(200, GetInfo())
+		return
 	}
 
 	TemplateFiles = append(TemplateFiles, "templates/welcome/welcome.tmpl")
@@ -48,17 +89,15 @@ func Welcome(c *gin.Context) {
 		panic(err)
 		//c.HTML(500, "error.tmpl", gin.H{"error": err.Error()})
 	}
-	//计算需要渲染的行数
-	rows := len(topics) / 4
-	if len(topics)%4 != 0 {
-		rows++
-	}
+
 	err = t.ExecuteTemplate(c.Writer, "layout", gin.H{
 		"title":    "Welcome",
-		"topics":   topics,
-		"page":     r.Page,
-		"pageSize": r.PageSize,
-		"rows":     rows,
+		"piModel":  "aa",
+		"ip":       "hostip",
+		"user":     "root",
+		"os":       "os",
+		"hostName": "host name",
+		"uname":    "uname",
 	})
 	if err != nil {
 		panic(err)

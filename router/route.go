@@ -22,8 +22,6 @@ func Init(r *gin.Engine) {
 
 	v1 := r.Group("/v1")
 	{
-		v1.GET("/ping", handle.Hello)
 		v1.GET("/welcome", handle.Welcome)
-		v1.GET("/list", handle.List)
 	}
 }
