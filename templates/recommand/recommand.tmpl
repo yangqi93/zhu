@@ -1,0 +1,77 @@
+{{ define "content" }}
+    <div class="main">
+        <div class="container">
+        <div class="section" style="">
+            {{ if .alert }}
+                    <div class="alert alert-info">
+                <div class="container">
+                <div class="alert-icon">
+                    <i class="material-icons">info_outline</i>
+                </div>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true"><i class="material-icons">clear</i></span>
+                </button>
+                <b>提示:</b> {{ .alert }}
+                </div>
+            </div>
+        {{ end }}
+        </div>
+
+        <div class="section">
+            <form class="form" action="/v1/recommand" method="post">
+                      <div class="row">
+                        <div class="col-md-4">
+                          <div class="form-group bmd-form-group">
+                            <input name="name" type="text" class="form-control" placeholder="您的笔名">
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="form-group bmd-form-group">
+                            <input name="title" type="text" class="form-control" placeholder="标题">
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="form-group bmd-form-group">
+                            <input name="url" type="text" class="form-control" placeholder="原文链接">
+                          </div>
+                        </div>
+                      </div>
+                      <span class="bmd-form-group"><textarea name="info" class="form-control" placeholder="推荐理由(可不填)" rows="6"></textarea></span>
+                      <div class="media-footer">
+                        <input type="submit" class="btn btn-primary float-right" value="提交">
+                      </div>
+                    </form>
+        </div>
+            
+        </div>
+    </div>
+{{end}}
+
+
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group bmd-form-group">
+                            <input type="text" class="form-control" placeholder="Your Name">
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group bmd-form-group">
+                            <input type="email" class="form-control" placeholder="Your email">
+                          </div>
+                        </div>
+                      </div>
+                      <span class="bmd-form-group"><textarea class="form-control" placeholder="Write some nice stuff or nothing..." rows="6"></textarea></span>
+                      <div class="media-footer">
+                        <h6>Sign in with</h6>
+                        <a href="" class="btn btn-just-icon btn-round btn-twitter">
+                          <i class="fa fa-twitter"></i>
+                        </a>
+                        <a href="" class="btn btn-just-icon btn-round btn-facebook">
+                          <i class="fa fa-facebook-square"></i>
+                        </a>
+                        <a href="" class="btn btn-just-icon btn-round btn-google">
+                          <i class="fa fa-google-plus-square"></i>
+                        </a>
+                        <a href="#pablo" class="btn btn-primary float-right">Post Comment</a>
+                      </div>
+                    </form>

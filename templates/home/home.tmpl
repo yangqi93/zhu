@@ -1,0 +1,47 @@
+{{ define "content" }}
+    <div class="main">
+        <div class="container">
+            <div class="section col-md-7">
+                <div style="font-size:14px">
+                <p>在 AI 横行的年代，更需要人类的手动推荐，手动点评；人类好的品味不会被 AI 淘汰的。 </p>
+                </div>
+            </div>
+            <h2 class="border-b" style="font-size: 16px;margin-top: -35px">
+      最新推荐
+      <p>----------------</p>
+    </h2>
+            <div class="section" style="margin-top: -95px">
+                {{ range $i,$t := .topics }}
+                <div class="row">
+                  <div class="col-md-7">
+                    <!-- <h6 class="card-category text-danger">
+                      <i class="material-icons">trending_up</i> Trending
+                    </h6> -->
+                    <h3 class="card-title">
+                      <a target="_blank" href="{{ $t.Url }}">{{ $t.Title }}</a>
+                    </h3>
+                    <p class="card-description">
+                        {{ $t.Description }}                      
+                        <a target="_blank" href="{{ $t.Url }}"> 阅读原文 </a>
+                    </p>
+                    <p class="author">
+                      by <b>{{ $t.Name }}</b>
+                      , {{ $t.CreatedAt }}
+                    </p>
+                  </div>
+                  <!-- <div class="col-md-5">
+                    <div class="card-header card-header-image">
+                      <img class="img img-raised" src="./assets/img/office2.jpg">
+                    <div class="colored-shadow" style="background-image: url(&quot;./assets/img/office2.jpg&quot;); opacity: 1;"></div></div>
+                  </div> -->
+                
+                </div>
+                {{ else }}
+                    <h6>暂无数据</h6>
+                {{ end }}
+            </div>
+            
+            </div>
+       
+    </div>
+{{end}}

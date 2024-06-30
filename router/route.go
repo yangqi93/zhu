@@ -1,9 +1,10 @@
 package router
 
 import (
-	"github.com/gin-gonic/gin"
 	"zhu/handle"
 	"zhu/middleware"
+
+	"github.com/gin-gonic/gin"
 )
 
 func Init(r *gin.Engine) {
@@ -18,8 +19,8 @@ func Init(r *gin.Engine) {
 
 	v1 := r.Group("/v1")
 	{
-		v1.GET("/ping", handle.Hello)
-		v1.GET("/welcome", handle.Welcome)
-		v1.GET("/list", handle.List)
+		v1.GET("/home", handle.Home)
+		v1.GET("/recommand", handle.Recommand)
+		v1.POST("/recommand", handle.Recommand)
 	}
 }

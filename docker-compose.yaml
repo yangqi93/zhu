@@ -30,7 +30,7 @@ services:
       - "MYSQL_ROOT_PASSWORD=example"
       - "TZ=Asia/Shanghai"
     ports:
-      - "3307:3306"
+      - "3306:3306"
     networks:
       diverge_network:
         ipv4_address: 172.30.1.3
