@@ -17,6 +17,8 @@ func Init(r *gin.Engine) {
 		})
 	})
 
+	r.GET("/", handle.Home)
+
 	v1 := r.Group("/v1")
 	{
 		v1.GET("/home", handle.Home)

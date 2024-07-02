@@ -3,7 +3,7 @@
 FROM golang:1.19.6-alpine3.16 as builder
 
 ENV GO111MODULE=on
-ENV GOPROXY=https://proxy.golang.com.cn,direct
+ENV GOPROXY=https://goproxy.io,direct
 # 指定构建过程中的工作目录
 WORKDIR /go/src/zhu
 

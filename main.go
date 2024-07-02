@@ -1,12 +1,12 @@
 package main
 
 import (
-	"github.com/gin-gonic/gin"
-	_ "zhu/config"
+	"zhu/config"
 	"zhu/log"
-	_ "zhu/log"
 	"zhu/models"
 	"zhu/router"
+
+	"github.com/gin-gonic/gin"
 )
 
 func main() {
@@ -23,7 +23,7 @@ func main() {
 	engin.Static("/assets", "assets")
 	router.Init(engin)
 	//err := engin.Run(config.Conf.Value.GetString("server.port"))
-	err := engin.Run(":8080")
+	err := engin.Run(config.Conf.Value.GetString("server.port"))
 	if err != nil {
 		panic(err)
 	}

@@ -5,19 +5,15 @@ import (
 	"zhu/service"
 
 	"github.com/gin-gonic/gin"
-	"github.com/go-playground/validator/v10"
 )
 
 func Home(c *gin.Context) {
 	//接收参数
 	var r WelcomeRequest
-	if err := c.ShouldBind(&r); err != nil {
+	if err := c.Bind(&r); err != nil {
 		c.HTML(500, "error.tmpl", gin.H{"error": err.Error()})
 	}
-	validate := validator.New()
-	if err := validate.Struct(r); err != nil {
-		c.HTML(500, "error.tmpl", gin.H{"error": err.Error()})
-	}
+
 	// 获取专题列表数据
 	if r.Page == 0 || r.PageSize == 0 {
 		r.Page = 1
