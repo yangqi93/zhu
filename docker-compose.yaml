@@ -1,12 +1,5 @@
 version: "3.7"
 
-networks:
-  diverge_network:
-    driver: bridge
-    ipam:
-      config:
-        - subnet: 172.30.0.0/16
-
 services:
   app:
     build: .
@@ -17,5 +10,5 @@ services:
       - ./logs:/logs
       - ./templates:/templates
     ports:
-      - "8080:8080"
+      - "80:80"
     network_mode: host
