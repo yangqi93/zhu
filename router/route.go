@@ -24,5 +24,7 @@ func Init(r *gin.Engine) {
 		v1.GET("/home", handle.Home)
 		v1.GET("/recommand", handle.Recommand)
 		v1.POST("/recommand", handle.Recommand)
+		v1.GET("/about", handle.About)
+		v1.GET("/download", handle.Download)
 	}
 }
